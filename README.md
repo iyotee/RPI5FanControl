@@ -1,6 +1,4 @@
-Voici une version améliorée, plus claire, moderne et professionnelle de ton **README.md**, avec intégration du logo et meilleure structure 👇
 
----
 
 # 🌬️ RPI5FanControl
 
