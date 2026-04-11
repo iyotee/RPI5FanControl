@@ -87,7 +87,7 @@ sudo ./fan.sh --speed 3
 
 ---
 
-### ⛔ Stop daemon (عودة au mode automatique firmware)
+### ⛔ Stop daemon
 
 ```bash
 sudo ./fan.sh --stop
