@@ -1,36 +1,55 @@
-# RPI5FanControl — Manual Fan Speed Enforcement for Raspberry Pi 5
-
-This project provides a robust Bash script that **forces and maintains a fixed fan speed** on the Raspberry Pi 5.  
-It is designed to **override the Raspberry Pi firmware**, which normally resets the fan speed automatically and unpredictably.
-
-The script runs a **background daemon** that continuously enforces the target speed, detects firmware overrides, and restores your chosen value within milliseconds.
+Voici une version améliorée, plus claire, moderne et professionnelle de ton **README.md**, avec intégration du logo et meilleure structure 👇
 
 ---
 
-## ✨ Features
+# 🌬️ RPI5FanControl
 
-- **Full manual control** of the Raspberry Pi 5 active‑cooling fan  
-- **Daemon mode** that:
-  - Survives SSH disconnections  
-  - Detects firmware speed changes  
-  - Rewrites the fan state aggressively  
-  - Logs all events to `/tmp/pi5_fan_control.log`
-- **Status display** with temperature, fan speed, percentage, and daemon state
-- **Safe validation** of speed values (0–4)
-- **Automatic cleanup** of PID and target files
-- **Colorized terminal output**
-- **Very fast reaction time** (check interval: 0.15s)
+### Manual Fan Speed Enforcement for Raspberry Pi 5
+
+<p align="center">
+  <img src="docs/logo.png" alt="RPI5FanControl Logo" width="500"/>
+</p>
+
+---
+
+## 🚀 Overview
+
+**RPI5FanControl** is a lightweight yet powerful Bash utility that gives you **full manual control over the Raspberry Pi 5 fan**.
+
+Unlike the default firmware—which dynamically and sometimes unpredictably overrides fan speed—this tool **forces and maintains a fixed speed** using a resilient background daemon.
+
+---
+
+## ✨ Key Features
+
+* 🎯 **Manual fan control (0–4 levels)**
+* 🔁 **Persistent daemon** that:
+
+  * Survives SSH disconnections
+  * Detects firmware overrides
+  * Instantly restores your chosen speed
+* ⚡ **Ultra-fast reaction time** (~150 ms)
+* 📊 **Live status display**:
+
+  * CPU temperature
+  * Fan speed & percentage
+  * Daemon state
+* 🧾 **Detailed logging** in `/tmp/pi5_fan_control.log`
+* 🎨 **Colorized terminal output**
+* 🧹 **Automatic cleanup** (PID + temp files)
+* 🔒 **Input validation (safe values only)**
 
 ---
 
 ## 📌 Requirements
 
-- Raspberry Pi **5**  
-- Raspberry Pi **active cooler** (fan connected to the official header)  
-- Linux environment with access to:
-  - `/sys/class/thermal/cooling_device0`
-  - `/sys/class/thermal/thermal_zone0`
-- **sudo/root privileges**
+* Raspberry Pi **5**
+* Official **active cooler (fan)**
+* Linux system with access to:
+
+  * `/sys/class/thermal/cooling_device0`
+  * `/sys/class/thermal/thermal_zone0`
+* **sudo/root privileges**
 
 ---
 
@@ -44,25 +63,25 @@ chmod +x fan.sh
 
 ---
 
-## 🚀 Usage
+## 🕹️ Usage
 
-### Set a fixed fan speed
+### ▶️ Set a fixed fan speed
 
 ```bash
 sudo ./fan.sh --speed N
 ```
 
-Where **N** is between **0 and 4**:
+Where **N = 0–4**:
 
-| Level | Description |
-|-------|-------------|
-| 0 | Off (silent, CPU up to ~60°C) |
-| 1 | Low (quiet, ~50–60°C) |
-| 2 | Medium (~40–50°C) |
-| 3 | High (audible, ~35–45°C) |
-| 4 | Maximum cooling (loud) |
+| Level | Description             |
+| ----- | ----------------------- |
+| 0     | 🔇 Off (~60°C max)      |
+| 1     | 🤫 Low (quiet, 50–60°C) |
+| 2     | ⚖️ Medium (40–50°C)     |
+| 3     | 🔊 High (35–45°C)       |
+| 4     | 🚀 Max cooling (loud)   |
 
-Example:
+**Example:**
 
 ```bash
 sudo ./fan.sh --speed 3
@@ -70,7 +89,7 @@ sudo ./fan.sh --speed 3
 
 ---
 
-### Stop the daemon and return to automatic firmware control
+### ⛔ Stop daemon (عودة au mode automatique firmware)
 
 ```bash
 sudo ./fan.sh --stop
@@ -78,7 +97,7 @@ sudo ./fan.sh --stop
 
 ---
 
-### Show current status
+### 📊 Show status
 
 ```bash
 sudo ./fan.sh --status
@@ -86,22 +105,22 @@ sudo ./fan.sh --status
 
 Displays:
 
-- CPU temperature  
-- Current fan state  
-- Max fan state  
-- Percentage  
-- Daemon status  
-- Recent log entries  
+* CPU temperature 🌡️
+* Current fan speed
+* Max speed
+* Percentage
+* Daemon status
+* Recent logs
 
 ---
 
-### Show logs
+### 🧾 Show logs
 
 ```bash
 sudo ./fan.sh --logs
 ```
 
-Or specify number of lines:
+Or:
 
 ```bash
 sudo ./fan.sh --logs 50
@@ -109,7 +128,7 @@ sudo ./fan.sh --logs 50
 
 ---
 
-### Help
+### ❓ Help
 
 ```bash
 sudo ./fan.sh --help
@@ -117,60 +136,77 @@ sudo ./fan.sh --help
 
 ---
 
-## 🛠 How It Works
+## ⚙️ How It Works
 
-The script interacts directly with:
+The script directly interacts with the Linux thermal system:
 
-- `/sys/class/thermal/cooling_device0/cur_state`
-- `/sys/class/thermal/cooling_device0/max_state`
-- `/sys/class/thermal/thermal_zone0/temp`
+* `/sys/class/thermal/cooling_device0/cur_state`
+* `/sys/class/thermal/cooling_device0/max_state`
+* `/sys/class/thermal/thermal_zone0/temp`
 
-The **daemon loop**:
+### 🔁 Daemon Logic
 
-1. Writes the target speed repeatedly  
-2. Detects firmware overrides  
-3. Restores your chosen speed instantly  
-4. Logs events such as:
-   - Firmware interference  
-   - Temperature snapshots  
-   - Speed changes  
-   - Correction counts  
+1. Continuously writes the target speed
+2. Detects firmware overrides
+3. Instantly restores your value
+4. Logs all activity
 
-It also performs a **preventive rewrite every 20 cycles** to ensure stability.
+✔ Preventive rewrite every 20 cycles
+✔ Real-time correction tracking
 
 ---
 
-## 📄 Log File
-
-Logs are stored at:
+## 🧾 Log File
 
 ```
 /tmp/pi5_fan_control.log
 ```
 
-Example entries:
+**Example:**
 
 ```
 [12:03:15] Daemon started (PID: 1234)
 [12:03:15] Target speed: 3
-[12:03:20] ⚠️ Firmware changed: 3 -> 1, restoring to 3
+[12:03:20] ⚠️ Firmware override: 3 -> 1 (restored)
 [12:04:00] ✓ Active – 200 cycles, 42°C, 12 corrections
 ```
 
 ---
 
-## ⚠️ Notes & Limitations
+## ⚠️ Limitations
 
-- Must be run as **root**  
-- Only works on **Raspberry Pi 5**  
-- Overrides **firmware fan control**  
-- Does **not** implement temperature‑based automatic curves  
-- Intended for users who want **full manual control**  
+* Requires **root privileges**
+* Only compatible with **Raspberry Pi 5**
+* Overrides firmware behavior
+* ❌ No automatic temperature curve (manual only)
 
 ---
 
 ## 🧑‍💻 Author
 
-**Jeremy Noverraz (1988–2026)**  
-Version: **2026.0114**  
-Created: **14 January 2026**
+**Jeremy Noverraz (1988–2026)**
+📦 Version: `2026.0114`
+📅 Created: 14 January 2026
+
+---
+
+## 💡 Suggestions for Repo Structure
+
+Pour que le logo fonctionne correctement, ajoute :
+
+```
+RPI5FanControl/
+│── fan.sh
+│── README.md
+└── docs/
+    └── logo.png   ← ton image
+```
+
+👉 Renomme ton image en `logo.png` et place-la dans `docs/`.
+
+---
+
+Si tu veux, je peux aussi te faire :
+
+* une **version GitHub ultra stylée (badges, shields, dark mode)**
+* ou une **page projet type landing (README premium)**
