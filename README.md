@@ -5,7 +5,7 @@
 ### Manual Fan Speed Enforcement for Raspberry Pi 5
 
 <p align="center">
-  <img src="docs/logo.png" alt="RPI5FanControl Logo" width="500"/>
+  <img src="logo (2).png" alt="RPI5FanControl Logo" width="500"/>
 </p>
 
 ---
