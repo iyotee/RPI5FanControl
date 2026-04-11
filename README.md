@@ -188,23 +188,3 @@ The script directly interacts with the Linux thermal system:
 
 ---
 
-## 💡 Suggestions for Repo Structure
-
-Pour que le logo fonctionne correctement, ajoute :
-
-```
-RPI5FanControl/
-│── fan.sh
-│── README.md
-└── docs/
-    └── logo.png   ← ton image
-```
-
-👉 Renomme ton image en `logo.png` et place-la dans `docs/`.
-
----
-
-Si tu veux, je peux aussi te faire :
-
-* une **version GitHub ultra stylée (badges, shields, dark mode)**
-* ou une **page projet type landing (README premium)**
